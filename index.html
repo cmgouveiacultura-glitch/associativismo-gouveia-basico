@@ -48,6 +48,10 @@
     .category { color:#66737c; font-size:.72rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase; }
     .status { display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border-radius:999px; color:#22633b; background:#e5f6ea; font-size:.72rem; font-weight:800; }
     .status::before { content:""; width:7px; height:7px; border-radius:50%; background:#2d9b52; box-shadow:0 0 0 3px rgba(45,155,82,.12); }
+    .status-closed { color:#8b2f2f; background:#fde9e8; }
+    .status-closed::before { background:#c94b47; box-shadow:0 0 0 3px rgba(201,75,71,.12); }
+    .status-scheduled { color:#76550b; background:#fff2c9; }
+    .status-scheduled::before { background:#d69b16; box-shadow:0 0 0 3px rgba(214,155,22,.13); }
     .card h3 { margin:0 0 10px; color:var(--navy-dark); font-size:1.2rem; line-height:1.25; }
     .card-rma h3 { color:#4f7028; }
     .card-impulso h3 { color:#c92e45; }
@@ -58,13 +62,25 @@
     .card p { margin:0 0 22px; color:var(--muted); font-size:.95rem; }
     .action { display:inline-flex; align-items:center; justify-content:flex-start; gap:12px; margin-top:auto; padding:14px 17px; border-radius:12px; color:white; background:var(--navy); font-weight:760; text-decoration:none; transition:background .18s ease; }
     .action:hover { background:var(--navy-dark); }
+    .action-disabled { color:#7a8389; background:#e7ecef; cursor:not-allowed; }
+    .action-disabled:hover { background:#e7ecef; }
     .action span:last-child { margin-left:auto; font-size:1.35rem; line-height:1; transition:transform .18s ease; }
     .action:hover span:last-child { transform:translateX(4px); }
     .bottom-grid { display:grid; grid-template-columns:1.35fr .65fr; gap:20px; margin-top:20px; }
     .section-block { margin-top:44px; }
     .section-heading { display:flex; align-items:end; justify-content:space-between; gap:24px; margin-bottom:20px; }
     .section-heading p { margin:0; max-width:510px; color:var(--muted); }
-    .resource-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .news-head { display:flex; align-items:center; gap:10px; }
+    .news-controls { display:flex; gap:8px; }
+    .news-button { display:grid; place-items:center; width:42px; height:42px; border:1px solid var(--line); border-radius:12px; color:var(--navy); background:white; font-size:1.35rem; cursor:pointer; transition:background .18s ease,color .18s ease; }
+    .news-button:hover { color:white; background:var(--navy); }
+    .news-track { display:grid; grid-auto-flow:column; grid-auto-columns:minmax(280px,calc((100% - 40px)/3)); gap:20px; overflow-x:auto; padding:3px 2px 16px; scroll-snap-type:x mandatory; scrollbar-width:thin; scrollbar-color:#b7c7d1 transparent; }
+    .news-card { scroll-snap-align:start; display:flex; min-height:230px; flex-direction:column; padding:24px; border:1px solid var(--line); border-radius:var(--radius); color:inherit; background:white; box-shadow:0 8px 24px rgba(17,46,67,.055); text-decoration:none; transition:transform .2s ease,box-shadow .2s ease; }
+    .news-card:hover { transform:translateY(-3px); box-shadow:0 16px 32px rgba(17,46,67,.11); }
+    .news-date { margin-bottom:18px; color:#cf5d1a; font-size:.76rem; font-weight:850; letter-spacing:.06em; text-transform:uppercase; }
+    .news-card h3 { margin:0; color:var(--navy-dark); font-size:1.08rem; line-height:1.35; }
+    .news-more { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:auto; padding-top:22px; color:var(--navy); font-size:.9rem; font-weight:800; }
+    .all-news { color:var(--navy); font-weight:800; text-decoration:none; }
     .resource-card { display:flex; align-items:flex-start; gap:17px; padding:25px; border:1px solid var(--line); border-radius:var(--radius); background:white; box-shadow:0 8px 24px rgba(17,46,67,.055); }
     .resource-icon { flex:0 0 auto; display:grid; place-items:center; width:45px; height:45px; border-radius:14px; color:white; background:var(--navy); }
     .resource-icon svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
@@ -85,9 +101,9 @@
     .notice h3,.regulation h3 { margin:0 0 8px; font-size:1.08rem; }
     .notice p,.regulation p { margin:0; font-size:.94rem; }
     .notice p { color:#625a44; }
-    .regulation { display:flex; flex-direction:column; justify-content:space-between; color:white; background:linear-gradient(135deg,var(--navy-dark),var(--navy)); }
-    .regulation p { color:#d9e6ee; }
-    .regulation a { margin-top:24px; color:#ffc346; font-weight:760; text-decoration:none; }
+    .regulation { display:flex; flex-direction:column; justify-content:space-between; color:white; background:linear-gradient(135deg,#e56b1f,#f39a24); box-shadow:0 12px 28px rgba(220,105,25,.2); }
+    .regulation p { color:#fff5e8; }
+    .regulation a { margin-top:24px; color:white; font-weight:800; text-decoration:none; }
     footer { color:#dce8ef; background:var(--navy-dark); padding:36px 0; }
     .footer-row { display:flex; align-items:center; justify-content:space-between; gap:24px; }
     .footer-brand { display:flex; align-items:center; gap:14px; }
@@ -104,7 +120,8 @@
       .hero-content { padding-top:150px; }
       .intro-row,.footer-row,.section-heading { align-items:flex-start; flex-direction:column; }
       .intro-row { padding-top:34px; gap:13px; }
-      .cards,.bottom-grid,.resource-grid { grid-template-columns:1fr; }
+      .cards,.bottom-grid { grid-template-columns:1fr; }
+      .news-track { grid-auto-columns:86%; }
       .announcement { align-items:flex-start; margin-top:22px; }
       .card-body { padding:21px; }
     }
@@ -129,7 +146,7 @@
   <main class="shell">
     <aside class="announcement" aria-label="Avisos e prazos">
       <div class="announcement-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13V8a2 2 0 0 1 2-2h3l7-3v15l-7-3H6a2 2 0 0 1-2-2Z"/><path d="M9 15v5H6l-1-6M19 8a5 5 0 0 1 0 5"/></svg></div>
-      <p><strong>Avisos e prazos</strong>Os formulários apresentados encontram-se disponíveis. Antes da submissão, consulte no respetivo formulário as condições e os prazos aplicáveis.</p>
+      <p><strong>Avisos e prazos</strong>O Plano de Atividades — Cultura encontra-se indisponível. O formulário de Desporto estará aberto entre 23 de setembro e 1 de novembro.</p>
     </aside>
     <section aria-labelledby="formularios">
       <div class="intro-row">
@@ -176,19 +193,19 @@
         <article class="card card-cultura">
           <div class="card-media"><img src="assets/header-cultura.jpg" alt="Plano de Atividades - Cultura 2026"></div>
           <div class="card-body">
-            <div class="card-meta"><span class="category">Planos de atividades</span><span class="status">Disponível</span></div>
+            <div class="card-meta"><span class="category">Planos de atividades</span><span class="status status-closed">Indisponível</span></div>
             <h3>Plano de Atividades - Cultura</h3>
             <p>Submissão do plano de atividades das associações culturais para efeitos de apoio anual.</p>
-            <a class="action" href="https://forms.gle/wQWZFGksYYbWX2758" target="_blank" rel="noopener"><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1.5a2 2 0 0 0 0-4H12a1.5 1.5 0 0 1 0-3h3a6 6 0 0 0 0-12h-3Z"/><path d="M7.5 10h.01M9 6.5h.01M15 6.5h.01M17 10h.01"/></svg></div><span>Abrir formulário</span><span aria-hidden="true">→</span></a>
+            <span class="action action-disabled" aria-disabled="true"><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1.5a2 2 0 0 0 0-4H12a1.5 1.5 0 0 1 0-3h3a6 6 0 0 0 0-12h-3Z"/><path d="M7.5 10h.01M9 6.5h.01M15 6.5h.01M17 10h.01"/></svg></div><span>Abrir formulário</span><span aria-hidden="true">→</span></span>
           </div>
         </article>
         <article class="card card-desporto">
           <div class="card-media"><img src="assets/header-desporto.jpg" alt="Plano de Atividades - Desporto 2026"></div>
           <div class="card-body">
-            <div class="card-meta"><span class="category">Planos de atividades</span><span class="status">Disponível</span></div>
+            <div class="card-meta"><span class="category">Planos de atividades</span><span class="status status-scheduled" id="desporto-status">23 set. — 1 nov.</span></div>
             <h3>Plano de Atividades - Desporto</h3>
             <p>Submissão do plano de atividades das associações desportivas para efeitos de apoio anual.</p>
-            <a class="action" href="https://forms.gle/7maYsg8BHV6GCsTW6" target="_blank" rel="noopener"><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8v4a4 4 0 0 1-8 0V4Z"/><path d="M8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 12v5M8 21h8M9 17h6v4"/></svg></div><span>Abrir formulário</span><span aria-hidden="true">→</span></a>
+            <a class="action" id="desporto-link" data-url="https://forms.gle/7maYsg8BHV6GCsTW6" href="https://forms.gle/7maYsg8BHV6GCsTW6" target="_blank" rel="noopener"><div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8v4a4 4 0 0 1-8 0V4Z"/><path d="M8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 12v5M8 21h8M9 17h6v4"/></svg></div><span>Abrir formulário</span><span aria-hidden="true">→</span></a>
           </div>
         </article>
       </div>
@@ -198,22 +215,28 @@
           <div><h3>Informação importante</h3><p>A submissão de um formulário não confere automaticamente direito ao apoio solicitado. Todos os pedidos estão sujeitos a análise, enquadramento regulamentar, interesse municipal e disponibilidade de recursos.</p></div>
         </aside>
         <aside class="regulation">
-          <div><h3>Precisa de ajuda?</h3><p>Esclareça dúvidas sobre os formulários e procedimentos do associativismo.</p></div>
-          <a href="mailto:apoios.associativismo@cm-gouveia.pt">Enviar email →</a>
+          <div><h3>Regulamento Municipal</h3><p>Consulte as regras aplicáveis aos apoios municipais destinados às associações.</p></div>
+          <a href="https://drive.google.com/file/d/1MmKe3A2oW8tdByWY7HFRH_PZ05GzU-G5/view?usp=drive_link" target="_blank" rel="noopener">Consultar regulamento →</a>
         </aside>
       </div>
 
-      <section class="section-block" aria-labelledby="recursos">
-        <div class="section-heading"><h2 id="recursos">Documentos e apoio</h2><p>Acesso rápido à informação essencial para preparar pedidos e candidaturas.</p></div>
-        <div class="resource-grid">
-          <article class="resource-card">
-            <div class="resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 2h9l4 4v16H6V2Z"/><path d="M14 2v5h5M9 12h6M9 16h6"/></svg></div>
-            <div><h3>Regulamento Municipal</h3><p>Consulte as regras aplicáveis aos apoios municipais destinados às associações.</p><a href="https://drive.google.com/file/d/1MmKe3A2oW8tdByWY7HFRH_PZ05GzU-G5/view?usp=drive_link" target="_blank" rel="noopener">Consultar regulamento →</a></div>
-          </article>
-          <article class="resource-card">
-            <div class="resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v12H8l-4 4V5Z"/><path d="M8 9h8M8 13h5"/></svg></div>
-            <div><h3>Apoio ao preenchimento</h3><p>Se tiver dificuldades ou dúvidas, contacte o serviço de Associativismo do Município.</p><a href="mailto:apoios.associativismo@cm-gouveia.pt">apoios.associativismo@cm-gouveia.pt →</a></div>
-          </article>
+      <section class="section-block" aria-labelledby="noticias">
+        <div class="section-heading">
+          <div><h2 id="noticias">Notícias do Município</h2><p>Informação recente publicada no site oficial do Município de Gouveia.</p></div>
+          <div class="news-head">
+            <a class="all-news" href="https://www.cm-gouveia.pt/noticias/" target="_blank" rel="noopener">Ver todas →</a>
+            <div class="news-controls" aria-label="Controlos do carrossel">
+              <button class="news-button" type="button" id="news-prev" aria-label="Notícias anteriores">‹</button>
+              <button class="news-button" type="button" id="news-next" aria-label="Notícias seguintes">›</button>
+            </div>
+          </div>
+        </div>
+        <div class="news-track" id="news-track">
+          <a class="news-card" href="https://www.cm-gouveia.pt/noticias/municipio-de-gouveia-e-sporting-clube-de-pacos-da-serra-reforcam-parceria-para-requalificacao-do-campo-de-futebol/" target="_blank" rel="noopener"><span class="news-date">28 agosto 2026</span><h3>Município de Gouveia e Sporting Clube de Paços da Serra reforçam parceria</h3><span class="news-more">Ler no site do Município <span>→</span></span></a>
+          <a class="news-card" href="https://www.cm-gouveia.pt/noticias/gouveia-presente-na-sessao-de-apoio-as-corporacoes-de-bombeiros/" target="_blank" rel="noopener"><span class="news-date">27 agosto 2026</span><h3>Gouveia presente na sessão de apoio às corporações de bombeiros</h3><span class="news-more">Ler no site do Município <span>→</span></span></a>
+          <a class="news-card" href="https://www.cm-gouveia.pt/noticias/encerramento-temporario-das-piscinas-municipais-descobertas-26-08-2026/" target="_blank" rel="noopener"><span class="news-date">26 agosto 2026</span><h3>Encerramento temporário das Piscinas Municipais Descobertas</h3><span class="news-more">Ler no site do Município <span>→</span></span></a>
+          <a class="news-card" href="https://www.cm-gouveia.pt/noticias/nota-de-pesar-18/" target="_blank" rel="noopener"><span class="news-date">Município de Gouveia</span><h3>Nota de Pesar</h3><span class="news-more">Ler no site do Município <span>→</span></span></a>
+          <a class="news-card" href="https://www.cm-gouveia.pt/noticias/municipio-de-gouveia-promove-peca-de-teatro-em-vila-nova-de-tazem/" target="_blank" rel="noopener"><span class="news-date">Município de Gouveia</span><h3>Município promove peça de teatro em Vila Nova de Tazem</h3><span class="news-more">Ler no site do Município <span>→</span></span></a>
         </div>
       </section>
 
@@ -235,5 +258,39 @@
       <div><a href="mailto:apoios.associativismo@cm-gouveia.pt">apoios.associativismo@cm-gouveia.pt</a><div style="margin-top:5px;color:#9fb5c3;font-size:.82rem;text-align:right">Atualizado em 21 de setembro de 2026</div></div>
     </div>
   </footer>
+  <script>
+    (() => {
+      const track = document.getElementById('news-track');
+      const move = direction => track?.scrollBy({ left: direction * Math.min(track.clientWidth * .9, 760), behavior: 'smooth' });
+      document.getElementById('news-prev')?.addEventListener('click', () => move(-1));
+      document.getElementById('news-next')?.addEventListener('click', () => move(1));
+
+      const status = document.getElementById('desporto-status');
+      const link = document.getElementById('desporto-link');
+      if (status && link) {
+        const today = new Date();
+        const year = today.getFullYear();
+        const opens = new Date(year, 8, 23, 0, 0, 0);
+        const closes = new Date(year, 10, 1, 23, 59, 59);
+        if (today < opens) {
+          status.textContent = 'Abre a 23 de setembro';
+          status.className = 'status status-scheduled';
+          link.removeAttribute('href');
+          link.classList.add('action-disabled');
+          link.setAttribute('aria-disabled', 'true');
+        } else if (today <= closes) {
+          status.textContent = 'Aberto até 1 de novembro';
+          status.className = 'status';
+          link.href = link.dataset.url;
+        } else {
+          status.textContent = 'Encerrado';
+          status.className = 'status status-closed';
+          link.removeAttribute('href');
+          link.classList.add('action-disabled');
+          link.setAttribute('aria-disabled', 'true');
+        }
+      }
+    })();
+  </script>
 </body>
 </html>
