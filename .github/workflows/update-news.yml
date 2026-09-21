@@ -1,0 +1,35 @@
+name: Atualizar notícias municipais
+
+on:
+  schedule:
+    - cron: "15 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atualizar-noticias
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter o portal
+        uses: actions/checkout@v4
+
+      - name: Atualizar as notícias
+        run: python3 scripts/update_news.py
+
+      - name: Guardar alterações
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "Não existem notícias novas."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Atualizar notícias municipais"
+          git push
