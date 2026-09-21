@@ -277,29 +277,28 @@
 
       const status = document.getElementById('desporto-status');
       const link = document.getElementById('desporto-link');
+      const banner = document.getElementById('deadline-banner');
+      const bannerText = document.getElementById('deadline-text');
+      const bannerLink = document.getElementById('deadline-link');
+
       if (status && link) {
         const today = new Date();
-        const opens = new Date(2026, 8, 23, 0, 0, 0);
         const closes = new Date(2026, 10, 1, 23, 59, 59);
-        if (today < opens) {
-          status.textContent = 'Abre a 23 de setembro';
-          status.className = 'status status-scheduled';
-          link.removeAttribute('href');
-          link.classList.add('action-disabled');
-          link.setAttribute('aria-disabled', 'true');
-          if (bannerText) bannerText.textContent = 'O formulário abre a 23 de setembro e termina a 1 de novembro de 2026.';
-          if (bannerLink) {
-            bannerLink.removeAttribute('href');
-            bannerLink.classList.add('is-disabled');
-            bannerLink.setAttribute('aria-disabled', 'true');
-            bannerLink.firstChild.textContent = 'A abrir brevemente ';
-          }
-        } else if (today <= closes) {
+
+        if (today <= closes) {
           status.textContent = 'Aberto até 1 de novembro';
           status.className = 'status';
           link.href = link.dataset.url;
+          link.classList.remove('action-disabled');
+          link.removeAttribute('aria-disabled');
+
           if (bannerText) bannerText.textContent = 'Candidaturas abertas até 1 de novembro de 2026.';
-          if (bannerLink) bannerLink.href = bannerLink.dataset.url;
+          if (bannerLink) {
+            bannerLink.href = bannerLink.dataset.url;
+            bannerLink.classList.remove('is-disabled');
+            bannerLink.removeAttribute('aria-disabled');
+            bannerLink.firstChild.textContent = 'Abrir formulário ';
+          }
         } else {
           status.textContent = 'Encerrado';
           status.className = 'status status-closed';
