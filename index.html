@@ -31,9 +31,13 @@
     .announcement::after { content:""; position:absolute; width:150px; height:150px; right:-65px; top:-75px; border-radius:50%; background:rgba(238,116,29,.09); }
     .announcement-icon { position:relative; z-index:1; flex:0 0 auto; display:grid; place-items:center; width:52px; height:52px; border-radius:16px; color:white; background:linear-gradient(135deg,#e76619,#f59b25); box-shadow:0 8px 18px rgba(211,91,18,.24); }
     .announcement-icon svg { width:25px; height:25px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-    .announcement p { position:relative; z-index:1; margin:0; color:#5f4b34; font-size:.98rem; }
-    .announcement strong { display:block; margin:4px 0 3px; color:#71350e; font-size:1.13rem; }
+    .announcement-content { position:relative; z-index:1; flex:1; min-width:0; }
+    .announcement p { margin:4px 0 0; color:#5f4b34; font-size:.98rem; }
+    .announcement strong { display:block; margin:4px 0 2px; color:#71350e; font-size:1.18rem; }
     .alert-label { display:inline-flex; padding:3px 8px; border-radius:999px; color:white; background:#d95e16; font-size:.68rem; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
+    .deadline-action { position:relative; z-index:1; flex:0 0 auto; display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; color:white; background:#d95e16; font-size:.9rem; font-weight:850; text-decoration:none; box-shadow:0 7px 16px rgba(190,76,10,.2); }
+    .deadline-action:hover { background:#b8490c; }
+    .deadline-action.is-disabled { color:#86654f; background:#f2d5bb; box-shadow:none; cursor:not-allowed; }
     .intro-row { display:flex; align-items:end; justify-content:space-between; gap:36px; padding:42px 0 26px; }
     h2 { margin:0; color:var(--navy-dark); font-size:clamp(1.65rem,3vw,2.4rem); line-height:1.1; letter-spacing:-.035em; }
     .intro-row p { margin:0; max-width:520px; color:var(--muted); }
@@ -125,7 +129,8 @@
       .intro-row { padding-top:34px; gap:13px; }
       .cards,.bottom-grid { grid-template-columns:1fr; }
       .news-track { grid-auto-columns:86%; }
-      .announcement { align-items:flex-start; margin-top:22px; }
+      .announcement { align-items:flex-start; flex-wrap:wrap; margin-top:22px; }
+      .deadline-action { width:100%; justify-content:center; }
       .card-body { padding:21px; }
     }
     @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto!important; transition:none!important; } }
@@ -147,9 +152,10 @@
     </div>
   </header>
   <main class="shell">
-    <aside class="announcement" aria-label="Avisos e prazos">
-      <div class="announcement-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13V8a2 2 0 0 1 2-2h3l7-3v15l-7-3H6a2 2 0 0 1-2-2Z"/><path d="M9 15v5H6l-1-6M19 8a5 5 0 0 1 0 5"/></svg></div>
-      <p><span class="alert-label">Atenção</span><strong>Avisos e prazos</strong>O Plano de Atividades — Cultura encontra-se indisponível. O formulário de Desporto estará aberto entre 23 de setembro e 1 de novembro.</p>
+    <aside class="announcement" id="deadline-banner" aria-label="Próximo prazo">
+      <div class="announcement-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 2v3M18 2v3M3 9h18M5 4h14a2 2 0 0 1 2 2v15H3V6a2 2 0 0 1 2-2Z"/><path d="M8 13h3M8 17h6"/></svg></div>
+      <div class="announcement-content"><span class="alert-label">Próximo prazo</span><strong>Plano de Atividades — Desporto</strong><p id="deadline-text">Aberto de 23 de setembro a 1 de novembro de 2026.</p></div>
+      <a class="deadline-action" id="deadline-link" data-url="https://forms.gle/7maYsg8BHV6GCsTW6" href="https://forms.gle/7maYsg8BHV6GCsTW6" target="_blank" rel="noopener">Abrir formulário <span aria-hidden="true">→</span></a>
     </aside>
     <section aria-labelledby="formularios">
       <div class="intro-row">
@@ -281,16 +287,26 @@
           link.removeAttribute('href');
           link.classList.add('action-disabled');
           link.setAttribute('aria-disabled', 'true');
+          if (bannerText) bannerText.textContent = 'O formulário abre a 23 de setembro e termina a 1 de novembro de 2026.';
+          if (bannerLink) {
+            bannerLink.removeAttribute('href');
+            bannerLink.classList.add('is-disabled');
+            bannerLink.setAttribute('aria-disabled', 'true');
+            bannerLink.firstChild.textContent = 'A abrir brevemente ';
+          }
         } else if (today <= closes) {
           status.textContent = 'Aberto até 1 de novembro';
           status.className = 'status';
           link.href = link.dataset.url;
+          if (bannerText) bannerText.textContent = 'Candidaturas abertas até 1 de novembro de 2026.';
+          if (bannerLink) bannerLink.href = bannerLink.dataset.url;
         } else {
           status.textContent = 'Encerrado';
           status.className = 'status status-closed';
           link.removeAttribute('href');
           link.classList.add('action-disabled');
           link.setAttribute('aria-disabled', 'true');
+          if (banner) banner.hidden = true;
         }
       }
     })();
