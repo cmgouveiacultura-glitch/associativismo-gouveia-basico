@@ -269,9 +269,8 @@
       const link = document.getElementById('desporto-link');
       if (status && link) {
         const today = new Date();
-        const year = today.getFullYear();
-        const opens = new Date(year, 8, 23, 0, 0, 0);
-        const closes = new Date(year, 10, 1, 23, 59, 59);
+        const opens = new Date(2026, 8, 23, 0, 0, 0);
+        const closes = new Date(2026, 10, 1, 23, 59, 59);
         if (today < opens) {
           status.textContent = 'Abre a 23 de setembro';
           status.className = 'status status-scheduled';
