@@ -43,7 +43,10 @@
     .deadline-copy strong{display:block;margin-top:2px;color:#65320e;font-size:1.02rem}
     .deadline-copy span{color:#765438;font-size:.9rem}
     .block{margin-top:17px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 5px 18px rgba(28,53,82,.045)}
-    .feature{display:grid;grid-template-columns:62px 1fr auto;align-items:center;gap:20px;padding:22px 24px}
+    .feature{padding:0}
+    .form-card{overflow:hidden}
+    .form-header{width:100%;aspect-ratio:4/1;object-fit:cover;background:#eef2f5;border-bottom:1px solid var(--line)}
+    .feature-body{display:grid;grid-template-columns:62px 1fr auto;align-items:center;gap:20px;padding:22px 24px}
     .icon{display:grid;place-items:center;width:58px;height:58px;border-radius:14px;color:var(--blue);background:#edf6ff}
     .icon svg{width:36px;height:36px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
     .copy h2,.copy h3{margin:0;color:var(--navy);line-height:1.2}
@@ -60,7 +63,8 @@
     .annual-head{display:flex;align-items:flex-start;gap:17px;margin-bottom:17px}
     .annual-head .icon{width:52px;height:52px;color:var(--orange);background:#fff2e8}
     .annual-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-left:69px}
-    .annual-card{display:grid;grid-template-columns:58px 1fr;gap:15px;padding:18px;border:1px solid var(--line);border-radius:12px;background:#fbfcfd}
+    .annual-card{overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#fbfcfd}
+    .annual-card-body{display:grid;grid-template-columns:58px 1fr;gap:15px;padding:18px}
     .annual-card .icon{width:52px;height:52px}
     .annual-card.cultura .icon{color:#e49600;background:#fff7dc}
     .annual-card.desporto .icon{color:var(--green);background:#eaf7ef}
@@ -71,11 +75,13 @@
     .status.open{color:#217743;background:#e8f6ed}
     .services{display:grid;grid-template-columns:1fr 1fr;gap:17px;margin-top:17px}
     .services .block{margin:0}
-    .service{display:grid;grid-template-columns:62px 1fr;gap:18px;height:100%;padding:22px}
+    .service{overflow:hidden;height:100%;padding:0}
+    .service-body{display:grid;grid-template-columns:62px 1fr;gap:18px;padding:22px}
     .service .button{margin-top:17px}
     .service.impulso .icon{color:var(--purple);background:#f1ebff}
     .service.apoio .icon{color:var(--blue);background:#eaf4ff}
-    .service.transport{grid-template-columns:62px 1fr auto;align-items:center}
+    .service.transport{display:block}
+    .service.transport .service-body{grid-template-columns:62px 1fr auto;align-items:center}
     .service.transport .icon{color:var(--green);background:#eaf7ef}
     .regulations{display:grid;grid-template-columns:62px 1fr;gap:18px;padding:22px 24px}
     .regulations .icon{color:var(--red);background:#fff0ee}
@@ -100,14 +106,15 @@
       .page{width:100%;margin:0;border:0;border-radius:0}
       .site-head{padding:15px 18px}.municipal-logo{width:155px;height:55px}.head-label{display:none}
       main{padding:24px 16px 36px}.hero{min-height:220px}.hero-brand{padding:26px 24px}
-      .feature,.service.transport{grid-template-columns:52px 1fr}.feature>.button,.service.transport>.button{grid-column:1/-1;width:100%}
+      .feature-body,.service.transport .service-body{grid-template-columns:52px 1fr}.feature-body>.button,.service.transport .service-body>.button{grid-column:1/-1;width:100%}
       .annual-grid{grid-template-columns:1fr;margin-left:0}.services{grid-template-columns:1fr}
       .news-track{grid-auto-columns:84%}.footer{align-items:flex-start;flex-direction:column;padding:24px 20px}
     }
     @media(max-width:520px){
       h1{font-size:2rem}.hero-brand img{height:96px}.hero-tagline{font-size:.61rem}
-      .feature,.service,.regulations{grid-template-columns:1fr}.feature .icon,.service .icon,.regulations .icon{width:48px;height:48px}
-      .annual{padding:19px 17px}.annual-card{grid-template-columns:1fr}.deadline{align-items:flex-start;flex-wrap:wrap}
+      .feature-body,.service-body,.service.transport .service-body,.regulations{grid-template-columns:1fr}.feature .icon,.service .icon,.regulations .icon{width:48px;height:48px}
+      .annual{padding:19px 17px}.annual-card-body{grid-template-columns:1fr}.deadline{align-items:flex-start;flex-wrap:wrap}
+      .form-header{aspect-ratio:3.25/1}
     }
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
   </style>
@@ -140,10 +147,13 @@
         <a class="button orange" href="https://forms.gle/7maYsg8BHV6GCsTW6" target="_blank" rel="noopener">Abrir formulário <span aria-hidden="true">→</span></a>
       </aside>
 
-      <section class="block feature">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h5M10 12h5M10 16h5"/></svg></div>
-        <div class="copy"><h2>Registo Municipal das Associações — RMA</h2><p>Permite o reconhecimento e a atualização dos dados das associações e coletividades do concelho de Gouveia.</p></div>
-        <a class="button" href="https://forms.gle/whVVKqn5iCWE3cdj9" target="_blank" rel="noopener">Formulário RMA <span aria-hidden="true">→</span></a>
+      <section class="block feature form-card">
+        <img class="form-header" src="assets/header-rma.jpg" alt="Registo Municipal de Associações 2026" loading="lazy">
+        <div class="feature-body">
+          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h5M10 12h5M10 16h5"/></svg></div>
+          <div class="copy"><h2>Registo Municipal das Associações — RMA</h2><p>Permite o reconhecimento e a atualização dos dados das associações e coletividades do concelho de Gouveia.</p></div>
+          <a class="button" href="https://forms.gle/whVVKqn5iCWE3cdj9" target="_blank" rel="noopener">Formulário RMA <span aria-hidden="true">→</span></a>
+        </div>
       </section>
 
       <section class="block annual">
@@ -152,32 +162,47 @@
           <div class="copy"><h2>Programas de Apoio Anual</h2><p>O Município de Gouveia promove anualmente programas de apoio ao movimento associativo nas áreas cultural e desportiva.</p></div>
         </div>
         <div class="annual-grid">
-          <article class="annual-card cultura">
-            <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5c4 0 6 2 8 5-2 3-4 5-8 5V5Z"/><path d="M12 9c3-3 5-4 8-4v10c-4 0-6-2-8-6Z"/><path d="M7 9h.01M17 9h.01"/></svg></div>
-            <div class="copy"><h3>Associativismo Cultural</h3><p>Submissão do plano de atividades das associações culturais para efeitos de apoio anual.</p><span class="status closed">Disponível em 2027</span><span class="button orange disabled" aria-disabled="true" data-url="https://forms.gle/wQWZFGksYYbWX2758">Plano de Atividades Culturais</span></div>
+          <article class="annual-card cultura form-card">
+            <img class="form-header" src="assets/header-cultura.jpg" alt="Plano de Atividades — Cultura 2027" loading="lazy">
+            <div class="annual-card-body">
+              <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5c4 0 6 2 8 5-2 3-4 5-8 5V5Z"/><path d="M12 9c3-3 5-4 8-4v10c-4 0-6-2-8-6Z"/><path d="M7 9h.01M17 9h.01"/></svg></div>
+              <div class="copy"><h3>Associativismo Cultural</h3><p>Submissão do plano de atividades das associações culturais para efeitos de apoio anual.</p><span class="status closed">Disponível em 2027</span><span class="button orange disabled" aria-disabled="true" data-url="https://forms.gle/wQWZFGksYYbWX2758">Plano de Atividades Culturais</span></div>
+            </div>
           </article>
-          <article class="annual-card desporto">
-            <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="14" cy="4" r="2"/><path d="m12 8 3 2 3-1M12 8l-3 4-4 1M15 10l-2 5 4 5M13 15l-5 5"/></svg></div>
-            <div class="copy"><h3>Associativismo Desportivo</h3><p>Plano de atividades para a época desportiva 2026/2027.</p><span class="status open" id="desporto-status">Aberto até 1 de novembro</span><a class="button green" id="desporto-link" data-url="https://forms.gle/7maYsg8BHV6GCsTW6" href="https://forms.gle/7maYsg8BHV6GCsTW6" target="_blank" rel="noopener">Plano de Atividades Desportivas <span aria-hidden="true">→</span></a></div>
+          <article class="annual-card desporto form-card">
+            <img class="form-header" src="assets/header-desporto.jpg" alt="Plano de Atividades — Desporto, época desportiva 2026/2027" loading="lazy">
+            <div class="annual-card-body">
+              <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="14" cy="4" r="2"/><path d="m12 8 3 2 3-1M12 8l-3 4-4 1M15 10l-2 5 4 5M13 15l-5 5"/></svg></div>
+              <div class="copy"><h3>Associativismo Desportivo</h3><p>Plano de atividades para a época desportiva 2026/2027.</p><span class="status open" id="desporto-status">Aberto até 1 de novembro</span><a class="button green" id="desporto-link" data-url="https://forms.gle/7maYsg8BHV6GCsTW6" href="https://forms.gle/7maYsg8BHV6GCsTW6" target="_blank" rel="noopener">Plano de Atividades Desportivas <span aria-hidden="true">→</span></a></div>
+            </div>
           </article>
         </div>
       </section>
 
       <div class="services">
-        <section class="block service impulso">
-          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20v-5h4v5M10 20V10h4v10M16 20V5h4v15M3 8l6-5 4 3 7-5"/></svg></div>
-          <div class="copy"><h2>Programa de Impulso Associativo</h2><p>Apoio a iniciativas inovadoras que reforcem a capacidade de intervenção e o impacto das associações no concelho.</p><span class="status closed">Disponível em 2027</span><span class="button purple disabled" aria-disabled="true" data-url="https://forms.gle/soDYQeq9pMVwR1Jq9">Candidaturas encerradas</span></div>
+        <section class="block service impulso form-card">
+          <img class="form-header" src="assets/header-impulso.jpg" alt="Programa de Impulso Associativo 2026" loading="lazy">
+          <div class="service-body">
+            <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20v-5h4v5M10 20V10h4v10M16 20V5h4v15M3 8l6-5 4 3 7-5"/></svg></div>
+            <div class="copy"><h2>Programa de Impulso Associativo</h2><p>Apoio a iniciativas inovadoras que reforcem a capacidade de intervenção e o impacto das associações no concelho.</p><span class="status closed">Disponível em 2027</span><span class="button purple disabled" aria-disabled="true" data-url="https://forms.gle/soDYQeq9pMVwR1Jq9">Candidaturas encerradas</span></div>
+          </div>
         </section>
-        <section class="block service apoio">
-          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div>
-          <div class="copy"><h2>Apoio Técnico, Material e Logístico</h2><p>Pedido de apoio municipal para a preparação e realização de atividades das associações.</p><a class="button" href="https://forms.gle/RKC3JpbJ5LutfM6C7" target="_blank" rel="noopener">Pedido de apoio <span aria-hidden="true">→</span></a></div>
+        <section class="block service apoio form-card">
+          <img class="form-header" src="assets/header-apoio.jpg" alt="Apoio Técnico, Material e Logístico 2026" loading="lazy">
+          <div class="service-body">
+            <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div>
+            <div class="copy"><h2>Apoio Técnico, Material e Logístico</h2><p>Pedido de apoio municipal para a preparação e realização de atividades das associações.</p><a class="button" href="https://forms.gle/RKC3JpbJ5LutfM6C7" target="_blank" rel="noopener">Pedido de apoio <span aria-hidden="true">→</span></a></div>
+          </div>
         </section>
       </div>
 
-      <section class="block service transport">
-        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 6h12v10H3zM15 10h3l3 3v3h-6z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></div>
-        <div class="copy"><h2>Cedência de Viatura Municipal com Condutor</h2><p>Pedido de transporte para deslocações relacionadas com a atividade da associação, sujeito à disponibilidade dos meios municipais.</p></div>
-        <a class="button green" href="https://forms.gle/oXAe2JRHRubWo6vs5" target="_blank" rel="noopener">Pedido de transporte <span aria-hidden="true">→</span></a>
+      <section class="block service transport form-card">
+        <img class="form-header" src="assets/header-transporte.jpg" alt="Transporte 2026" loading="lazy">
+        <div class="service-body">
+          <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 6h12v10H3zM15 10h3l3 3v3h-6z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></div>
+          <div class="copy"><h2>Cedência de Viatura Municipal com Condutor</h2><p>Pedido de transporte para deslocações relacionadas com a atividade da associação, sujeito à disponibilidade dos meios municipais.</p></div>
+          <a class="button green" href="https://forms.gle/oXAe2JRHRubWo6vs5" target="_blank" rel="noopener">Pedido de transporte <span aria-hidden="true">→</span></a>
+        </div>
       </section>
 
       <section class="block regulations">
