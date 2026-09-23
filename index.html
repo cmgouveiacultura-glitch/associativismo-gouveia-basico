@@ -19,10 +19,11 @@
     .nav-row { display:flex; align-items:center; justify-content:space-between; gap:24px; }
     .assoc-logo { width:210px; height:60px; object-fit:contain; object-position:left center; filter:drop-shadow(0 5px 12px rgba(0,0,0,.22)); }
     .municipal-logo { width:145px; height:52px; object-fit:contain; }
-    .hero { position:relative; min-height:300px; color:white; overflow:hidden; background:#163e58 url("assets/gouveia.jpg") center 57%/cover no-repeat; }
+    .hero { position:relative; min-height:325px; display:flex; align-items:center; color:white; overflow:hidden; background:#163e58 url("assets/gouveia.jpg") center 57%/cover no-repeat; }
     .hero::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(5,28,45,.91) 0%,rgba(9,44,68,.72) 46%,rgba(8,33,49,.20) 100%); }
     .hero::after { content:""; position:absolute; inset:auto 0 0; height:130px; background:linear-gradient(transparent,rgba(7,29,43,.55)); }
-    .hero-content { position:relative; z-index:2; padding-top:96px; max-width:580px; }
+    .hero-content { position:relative; z-index:2; padding-top:64px; padding-bottom:46px; }
+    .hero-content .eyebrow,.hero-content h1,.hero-content .lead { max-width:650px; }
     .eyebrow { margin:0 0 10px; color:#ffc346; font-size:.98rem; font-weight:800; letter-spacing:.13em; text-transform:uppercase; }
     h1 { margin:0; font-size:clamp(2.2rem,4.8vw,3.65rem); line-height:.98; letter-spacing:-.052em; }
     .lead { margin:14px 0 0; max-width:650px; color:#eef5f8; font-size:clamp(1rem,1.65vw,1.15rem); }
@@ -42,14 +43,10 @@
     h2 { margin:0; color:var(--navy-dark); font-size:clamp(1.3rem,2.2vw,1.7rem); line-height:1.1; letter-spacing:-.035em; }
     .intro-row p { margin:0; max-width:520px; color:var(--muted); }
     .cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:11px; }
-    .google-notice { display:flex; align-items:flex-start; gap:11px; margin:0 0 14px; padding:11px 13px; border:1px solid #b9d6ec; border-radius:14px; color:#23465f; background:#eef7fd; }
-    .google-notice-icon { flex:0 0 auto; display:grid; place-items:center; width:29px; height:29px; border-radius:10px; color:white; background:#2879b6; font-weight:900; }
-    .google-notice strong { display:block; color:#123d5d; font-size:.84rem; }
-    .google-notice p { margin:1px 0 0; font-size:.78rem; line-height:1.45; }
     .card { overflow:hidden; display:flex; flex-direction:column; min-width:0; border:1px solid var(--line); border-radius:var(--radius); background:white; box-shadow:0 8px 24px rgba(17,46,67,.055); transition:transform .2s ease,box-shadow .2s ease; }
     .card:hover { transform:translateY(-4px); box-shadow:0 18px 34px rgba(17,46,67,.12); }
-    .card-media { position:relative; aspect-ratio:5.7/1; overflow:hidden; background:#f2f3f4; }
-    .card-media img { width:100%; height:100%; object-fit:cover; transition:transform .35s ease; }
+    .card-media { position:relative; aspect-ratio:4/1; overflow:hidden; background:#fff; }
+    .card-media img { width:100%; height:100%; object-fit:contain; object-position:center; transition:transform .35s ease; }
     .card:hover .card-media img { transform:scale(1.025); }
     .card-body { display:flex; flex:1; flex-direction:column; padding:13px; }
     .card-icon { flex:0 0 auto; display:grid; place-items:center; width:24px; height:24px; color:white; }
@@ -112,6 +109,8 @@
     .notice h3,.regulation h3 { margin:0 0 8px; font-size:1.08rem; }
     .notice p,.regulation p { margin:0; font-size:.94rem; }
     .notice p { color:#625a44; }
+    .notice p + p { margin-top:10px; }
+    .notice p strong { color:#4f3f19; }
     .regulation { display:flex; flex-direction:column; justify-content:space-between; color:white; background:linear-gradient(135deg,#e56b1f,#f39a24); box-shadow:0 12px 28px rgba(220,105,25,.2); }
     .regulation p { color:#fff5e8; }
     .regulation a { margin-top:24px; color:white; font-weight:800; text-decoration:none; }
@@ -126,9 +125,9 @@
       .nav { padding-top:15px; }
       .assoc-logo { width:165px; height:58px; }
       .municipal-logo { width:130px; height:52px; }
-      .hero { min-height:330px; background-position:58% center; }
+      .hero { min-height:355px; background-position:58% center; }
       .hero::before { background:linear-gradient(90deg,rgba(5,28,45,.92),rgba(8,39,60,.66)); }
-      .hero-content { padding-top:100px; }
+      .hero-content { padding-top:76px; padding-bottom:48px; }
       .intro-row,.footer-row,.section-heading { align-items:flex-start; flex-direction:column; }
       .intro-row { padding-top:34px; gap:13px; }
       .cards,.bottom-grid { grid-template-columns:1fr; }
@@ -136,7 +135,6 @@
       .announcement { align-items:flex-start; flex-wrap:wrap; margin-top:22px; }
       .deadline-action { width:100%; justify-content:center; }
       .card-body { padding:16px; }
-      .google-notice { padding:13px 14px; }
     }
     @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto!important; transition:none!important; } }
   </style>
@@ -167,10 +165,6 @@
         <h2 id="formularios">O que pretende fazer?</h2>
         <p>Selecione uma opção para abrir diretamente o respetivo formulário. Não precisa de percorrer menus ou páginas intermédias.</p>
       </div>
-      <aside class="google-notice" aria-label="Sessão Google obrigatória">
-        <div class="google-notice-icon" aria-hidden="true">G</div>
-        <div><strong>É necessário iniciar sessão numa conta Google</strong><p>Os formulários permitem o carregamento de documentos. Por esse motivo, é obrigatório ter sessão iniciada numa conta Google para os preencher e submeter.</p></div>
-      </aside>
       <div class="cards">
         <article class="card card-rma">
           <div class="card-media"><img src="assets/header-rma.jpg" alt="Registo Municipal de Associações 2026"></div>
@@ -230,7 +224,7 @@
       <div class="bottom-grid">
         <aside class="notice">
           <div class="notice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 9v5M12 17.5h.01"/></svg></div>
-          <div><h3>Informação importante</h3><p>A submissão de um formulário não confere automaticamente direito ao apoio solicitado. Todos os pedidos estão sujeitos a análise, enquadramento regulamentar, interesse municipal e disponibilidade de recursos.</p></div>
+          <div><h3>Informação importante</h3><p>A submissão de um formulário não confere automaticamente direito ao apoio solicitado. Todos os pedidos estão sujeitos a análise, enquadramento regulamentar, interesse municipal e disponibilidade de recursos.</p><p><strong>Conta Google obrigatória:</strong> como os formulários permitem o carregamento de documentos, é necessário ter sessão iniciada numa conta Google para os preencher e submeter.</p></div>
         </aside>
         <aside class="regulation">
           <div><h3>Regulamento Municipal</h3><p>Consulte as regras aplicáveis aos apoios municipais destinados às associações.</p></div>
