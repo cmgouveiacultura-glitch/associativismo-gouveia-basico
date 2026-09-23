@@ -16,9 +16,10 @@
     .shell { width:min(1020px,calc(100% - 40px)); margin-inline:auto; }
     .topline { height:7px; background:linear-gradient(90deg,#f3a71a,#f02928 36%,#cf3865 57%,#214b9b 78%,#718d1d); }
     .nav { position:absolute; z-index:4; inset:7px 0 auto; padding:12px 0; }
-    .nav-row { display:flex; align-items:center; justify-content:space-between; gap:24px; }
-    .assoc-logo { width:210px; height:60px; object-fit:contain; object-position:left center; filter:drop-shadow(0 5px 12px rgba(0,0,0,.22)); }
-    .municipal-logo { width:145px; height:52px; object-fit:contain; }
+    .nav-row { display:flex; align-items:flex-start; justify-content:flex-end; }
+    .brand-stack { display:flex; flex-direction:column; align-items:flex-end; gap:2px; }
+    .assoc-logo { width:250px; height:67px; object-fit:contain; object-position:right center; filter:drop-shadow(0 5px 12px rgba(0,0,0,.22)); }
+    .municipal-logo { width:185px; height:55px; object-fit:contain; object-position:right center; filter:drop-shadow(0 5px 12px rgba(0,0,0,.18)); }
     .hero { position:relative; min-height:325px; display:flex; align-items:center; color:white; overflow:hidden; background:#163e58 url("assets/gouveia.jpg") center 57%/cover no-repeat; }
     .hero::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(5,28,45,.91) 0%,rgba(9,44,68,.72) 46%,rgba(8,33,49,.20) 100%); }
     .hero::after { content:""; position:absolute; inset:auto 0 0; height:130px; background:linear-gradient(transparent,rgba(7,29,43,.55)); }
@@ -130,11 +131,12 @@
     @media (max-width:760px) {
       .shell { width:min(100% - 24px,1140px); }
       .nav { padding-top:15px; }
-      .assoc-logo { width:165px; height:58px; }
-      .municipal-logo { width:130px; height:52px; }
+      .brand-stack { gap:0; }
+      .assoc-logo { width:170px; height:46px; }
+      .municipal-logo { width:125px; height:38px; }
       .hero { min-height:355px; background-position:58% center; }
       .hero::before { background:linear-gradient(90deg,rgba(5,28,45,.92),rgba(8,39,60,.66)); }
-      .hero-content { padding-top:76px; padding-bottom:48px; }
+      .hero-content { padding-top:112px; padding-bottom:42px; }
       .intro-row,.footer-row,.section-heading { align-items:flex-start; flex-direction:column; }
       .intro-row { padding-top:34px; gap:13px; }
       .cards,.bottom-grid { grid-template-columns:1fr; }
@@ -150,8 +152,10 @@
   <div class="topline" aria-hidden="true"></div>
   <nav class="nav" aria-label="Identificação institucional">
     <div class="shell nav-row">
-      <img class="assoc-logo" src="assets/logo-associativismo-completo.png" alt="Associativismo de Gouveia">
-      <img class="municipal-logo" src="assets/logo-municipio.png" alt="Município de Gouveia">
+      <div class="brand-stack">
+        <img class="assoc-logo" src="assets/logo-associativismo-completo.png" alt="Associativismo de Gouveia">
+        <img class="municipal-logo" src="assets/logo-municipio.png" alt="Município de Gouveia">
+      </div>
     </div>
   </nav>
   <header class="hero">
